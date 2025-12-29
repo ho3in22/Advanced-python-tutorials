@@ -17,5 +17,18 @@ except Exception as e:
     # logging.error("Expection occurred", exc_info=True)
     logging.exception("Expection occurred")
 
-logger = logging.getLogger('test_logger')
-logger.warning('This is Warning !')
+logger = logging.getLogger(__name__)
+# logger.warning('This is Warning !')
+c_handler = logging.StreamHandler()
+c_handler.setLevel(logging.INFO)
+
+f_handler = logging.FileHandler('app.log')
+f_handler.setLevel(logging.WARNING)
+
+c_format = logging.Formatter('%(name)s-%(levelname)s-%(message)s-%(asctime)s') 
+c_handler.setFormatter(c_format)
+f_handler.setFormatter(c_format)
+
+logger.addHandler(c_handler)
+logger.addHandler(f_handler)
+logger.warning('this is warning')
